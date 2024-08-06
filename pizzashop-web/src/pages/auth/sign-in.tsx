@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Helmet } from "react-helmet-async";
+import { toast } from 'sonner';
 
 const signInForm = z.object({
     email: z.string().email(),
@@ -15,8 +16,13 @@ const SignIn = () => {
 
     const { register, handleSubmit, formState: { isSubmitting } } = useForm<SignInForm>()
     async function handleSigniN(data: SignInForm) {
-        console.log(data)
-        await new Promise((resolve => setTimeout(resolve, 3000)))
+        try {
+            await new Promise((resolve => setTimeout(resolve, 3000)))
+            toast.success('Enviamos um link de autenticação para o seu e-mail!')
+        } catch (error) {
+            toast.error('E-mail invalido!')
+
+        }
     }
 
     return (
