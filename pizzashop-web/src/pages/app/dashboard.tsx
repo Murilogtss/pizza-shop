@@ -1,7 +1,12 @@
+import { Helmet } from "react-helmet-async";
+
 const Dashboard = () => {
-    return ( 
-        <h1>Dashboard Page</h1>
-     );
+    return (
+        <>
+            <Helmet title="Dashboard" />
+            <h1>Dashboard Page</h1>
+        </>
+    );
 }
- 
+
 export default Dashboard;
