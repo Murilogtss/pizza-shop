@@ -1,7 +1,7 @@
 import { HomeIcon, PizzaIcon, UtensilsCrossedIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
-import { Link } from "react-router-dom";
 import NavLInk from "./nav-link";
+import { ThemeToggle } from "./theme/theme-toggle";
 
 const Header = () => {
     return (
@@ -20,6 +20,10 @@ const Header = () => {
                         Pedidos
                     </NavLInk>
                 </nav>
+
+                <div className="ml-auto flex items-center gap-2">
+                    <ThemeToggle />
+                </div>
             </div>
         </div>
     );
