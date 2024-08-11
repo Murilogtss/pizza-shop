@@ -1,11 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSignIcon } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import MonthRevenueCard from "./month-revenue-card";
 import MonthOrdersAmountCard from "./month-order-amount-card";
 import DayOrdersAmountCard from "./day-orders-amount-card";
 import MonthCanceledOrdersAmountCard from "./month-canceled-orders-amount-card";
 import RevenueChart from "./revenue-chart";
+import PopularProductsChart from "./popular-products-chart";
 
 const Dashboard = () => {
     return (
@@ -22,6 +21,7 @@ const Dashboard = () => {
 
                 <div className="grid grid-cols-9 gap-4">
                     <RevenueChart />
+                    <PopularProductsChart />
                 </div>
             </div>
         </>
