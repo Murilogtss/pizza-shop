@@ -1,14 +1,18 @@
 import { BuildingIcon, ChevronDownIcon, LogOutIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProfile } from "@/api/get-profile";
 import { getManagedRestaurant } from "@/api/get-managed-restaurant";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import StoreProfileDialog from "./store-profile-dialog";
+import { signOut } from "@/api/sign-out";
+import { replace, useNavigate } from "react-router-dom";
 
 const AccountMenu = () => {
+
+    const navigate = useNavigate()
 
     const { data: profile, isLoading: isLoadingProfile } = useQuery({
         queryKey: ['profile'],
@@ -20,6 +24,11 @@ const AccountMenu = () => {
         queryKey: ['managed-restaurant'],
         queryFn: getManagedRestaurant,
         staleTime: Infinity
+    })
+
+    const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
+        mutationFn: signOut,
+        onSuccess: () => navigate('/sign-in', { replace: true })
     })
 
     return (
@@ -52,9 +61,11 @@ const AccountMenu = () => {
                             <span>Perfil da Loja</span>
                         </DropdownMenuItem>
                     </DialogTrigger>
-                    <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
-                        <LogOutIcon size={16} className="mr-2" />
-                        <span>Sair</span>
+                    <DropdownMenuItem className="text-rose-500 dark:text-rose-400" disabled={isSigningOut} asChild>
+                        <button className="w-full" onClick={() => signOutFn()}>
+                            <LogOutIcon size={16} className="mr-2" />
+                            <span>Sair</span>
+                        </button>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
